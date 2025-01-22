@@ -107,26 +107,42 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
+  // Utility function to format currency
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
+
   // Calculate Total Price
   const calculateTotalPrice = (cartItems) => {
-    return cartItems.reduce((total, cartItem) => {
+    const total = cartItems.reduce((total, cartItem) => {
       return total + cartItem.price * cartItem.quantity;
     }, 0);
+    return formatCurrency(total); // Format the total price as currency
   };
 
   // Calculate VAT (20% of Total Price)
   const calculateVat = (cartItems) => {
-    return calculateTotalPrice(cartItems) * 0.2;
+    const vat =
+      cartItems.reduce((total, cartItem) => {
+        return total + cartItem.price * cartItem.quantity;
+      }, 0) * 0.2;
+    return formatCurrency(vat); // Format VAT as currency
   };
 
   // Calculate Grand Total (Total Price + VAT + Flat Shipping Fee)
   const calculateGrandTotalPrice = (cartItems) => {
     const shippingFee = 50; // Flat shipping fee
-    return (
-      calculateTotalPrice(cartItems) + calculateVat(cartItems) + shippingFee
-    );
+    const total = cartItems.reduce((total, cartItem) => {
+      return total + cartItem.price * cartItem.quantity;
+    }, 0);
+    const grandTotal = total + total * 0.2 + shippingFee;
+    return formatCurrency(grandTotal); // Format grand total as currency
   };
-  
+
+  // Handle Payment
   const handlePayment = (e) => {
     e.preventDefault();
     setShowModal(!showModal);
@@ -149,6 +165,7 @@ export const CartProvider = ({ children }) => {
         calculateVat,
         calculateGrandTotalPrice,
         handlePayment,
+        formatCurrency,
       }}
     >
       {children}

@@ -5,12 +5,6 @@ const homePageData = [
     title: "XX99 Mark II Headphones",
     description:
       "Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.",
-    image: [
-      "/assets/home/desktop/hero-img.png",
-      "/assets/home/tablet/image-header.jpg",
-      "/assets/home/mobile/image-header.jpg",
-    ],
-    desktopImage: "/assets/home/desktop/hero-img.png",
   },
   {
     id: 4,
@@ -23,7 +17,6 @@ const homePageData = [
       "/assets/home/tablet/image-speaker-zx9.jpg",
       "/assets/home/mobile/image-speaker-zx9.jpg",
     ],
-    desktopImage: "/assets/home/desktop/image-speaker-zx9.png",
   },
   {
     id: 5,
@@ -34,7 +27,6 @@ const homePageData = [
       "/assets/home/tablet/image-speaker-zx7.jpg",
       "/assets/home/mobile/image-speaker-zx7.jpg",
     ],
-    desktopImage: "/assets/home/desktop/image-speaker-zx7.png",
   },
   {
     id: 6,
@@ -45,7 +37,6 @@ const homePageData = [
       "/assets/home/tablet/image-earphones-yx1.jpg",
       "/assets/home/mobile/image-earphones-yx1.jpg",
     ],
-    desktopImage: "/assets/home/desktop/image-earphones-yx1.jpg",
   },
 ];
 

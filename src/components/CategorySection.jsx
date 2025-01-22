@@ -20,18 +20,18 @@ const categories = [
 
 function CategorySection() {
   return (
-    <section className="flex w-full justify-center items-center py-12 mt-10">
-      <div className="flex gap-10 justify-between items-center w-9/12">
+    <section className=" flex w-full justify-center items-center py-12 mt-4 sm:mt-20">
+      <div className="flex flex-col sm:flex-row gap-20 sm:gap-10 justify-between items-center w-10/12">
         {categories.map((category) => (
           <div
             key={category.name}
-            className="flex flex-col items-center text-center bg-[#fafafa] rounded-lg shadow-md p-6 w-full"
+            className="flex flex-col items-center text-center bg-[#fafafa] border rounded-lg shadow-md p-6 w-full"
           >
             {/* Image */}
             <img
               src={category.image}
               alt={category.name}
-              className="h-[146] w-40 object-contain mb-4 mt-[-75px]"
+              className="h-[146] w-40 object-contain sm:mb-4 mt-[-75px]"
             />
 
             {/* Category Name */}
@@ -42,7 +42,7 @@ function CategorySection() {
               to={category.url}
               className="hover:text-primary text-[13px] text-gray-400 font-semibold flex items-center gap-1"
             >
-              SHOP{" "}
+              SHOP
               <span>
                 <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg">
                   <path

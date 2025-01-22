@@ -1,8 +1,8 @@
 function HeroSection() {
   return (
-    <section className="hero-section flex justify-center items-center py-10">
-      <div className="flex justify-between gap-32 w-9/12">
-        <div className="flex flex-col justify-center gap-8 w-5/12">
+    <section className="hero-section flex justify-center items-center py-10 mt-10">
+      <div className="flex flex-col sm:flex-row justify-between gap-10 sm:gap-32 w-10/12">
+        <div className="flex flex-col justify-center gap-8 sm:w-5/12 order-2 sm:order-1 text-center sm:text-left">
           <h2 className="uppercase font-bold text-4xl">
             Bringing you the <span className="text-primary">best</span> audio
             gear
@@ -17,7 +17,7 @@ function HeroSection() {
           </p>
         </div>
 
-        <div className="w-[45%] rounded-lg">
+        <div className="sm:w-[45%] rounded-lg order-1 sm:order-2">
           <img
             src="/assets/shared/desktop/image-best-gear.jpg"
             alt="Image Best Gear"

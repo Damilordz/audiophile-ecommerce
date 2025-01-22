@@ -10,7 +10,7 @@ const navLinks = [
 function NavLinks() {
   return (
     <nav>
-      <ul className="list-none flex uppercase gap-8">
+      <ul className="list-none flex flex-col sm:flex-row uppercase gap-6 justify-between sm:gap-8">
         {navLinks.map((link, index) => (
           <li key={index}>
             <Link

@@ -5,6 +5,8 @@
 
 body {
   font-size: 15px;
-  /* background-color: #f2f2f2; */
-   background-color: #eeeded;
+  background-color: #fafafa;
+  font-weight: 300;
+  line-height: 1.5;
+  position: relative;
 }
