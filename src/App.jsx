@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer />
+      <ToastContainer closeOnClick={true} />
       {/* Header will appear on all pages */}
       <Header />
 

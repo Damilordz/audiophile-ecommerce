@@ -1,22 +1,15 @@
-import { createContext, useState, useEffect, useRef } from "react";
+import { createContext, useState, useEffect, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import cartData from "../data/cartData";
+import { getValidCartItems } from "../utils/cartUtils";
 
 const CartContext = createContext({});
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [cartItems, setCartItems] = useState(() => {
-    try {
-      const storedCart = localStorage.getItem("cartItems");
-      return storedCart ? JSON.parse(storedCart) : [];
-    } catch (error) {
-      console.error("Error parsing cartItems from localStorage:", error);
-      return []; // Fallback to an empty cart if there's an error
-    }
-  });
+  const [cartItems, setCartItems] = useState(getValidCartItems);
 
   const toastDisplayed = useRef(false); // To prevent multiple toasts
 
@@ -41,23 +34,24 @@ export const CartProvider = ({ children }) => {
     const product = cartData.find((item) => item.id === productId);
     if (!product) return;
 
+    const expiresAt = new Date().getTime() + 24 * 60 * 60 * 1000; // Expire in 24 hours
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === productId);
+      let updatedItems;
 
-      if (existingItem && !toastDisplayed.current) {
-        toast.success(`Updated quantity for ${product.name}`);
-        toastDisplayed.current = true;
-        setTimeout(() => (toastDisplayed.current = false), 3000); // Reset after 3 seconds
-        return prevItems.map((item) =>
+      if (existingItem) {
+        // Update the quantity of the existing item
+        updatedItems = prevItems.map((item) =>
           item.id === productId
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: item.quantity + quantity, expiresAt }
             : item
         );
-      } else if (!toastDisplayed.current) {
-        toast.success(`${product.name} added to cart!`);
-        toastDisplayed.current = true;
-        setTimeout(() => (toastDisplayed.current = false), 3000); // Reset after 3 seconds
-        return [
+        // Show toast for updating quantity
+        toast.success(`Updated quantity for ${product.name}`);
+      } else {
+        // Add the new item to the cart
+        updatedItems = [
           ...prevItems,
           {
             id: productId,
@@ -65,9 +59,14 @@ export const CartProvider = ({ children }) => {
             name: product.name,
             image: product.image,
             price: product.price,
+            expiresAt,
           },
         ];
+        // Show toast for adding a new item
+        toast.success(`${product.name} added to cart!`);
       }
+
+      return updatedItems;
     });
   };
 
@@ -80,16 +79,23 @@ export const CartProvider = ({ children }) => {
   };
 
   const decrementQuantity = (productId) => {
-    setCartItems(
-      (prevItems) =>
-        prevItems
-          .map((item) =>
-            item.id === productId
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          )
-          .filter((item) => item.quantity > 0) // Remove item if quantity is 0
-    );
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0); // Remove item if quantity is 0
+
+      if (!toastDisplayed.current && updatedItems.length < 1) {
+        toast.info("All items removed from the cart.");
+        toastDisplayed.current = true; // Mark the toast as displayed
+        setTimeout(() => (toastDisplayed.current = false), 100); // Reset after a short delay
+      }
+
+      return updatedItems;
+    });
   };
 
   const removeItem = (productId) => {
@@ -101,45 +107,35 @@ export const CartProvider = ({ children }) => {
   const removeAllItems = () => {
     if (cartItems.length > 0) {
       toast.info("All items removed from the cart.");
+      setCartItems([]);
     } else {
       toast.warn("The cart is already empty.");
     }
-    setCartItems([]);
   };
 
-  // Utility function to format currency
+  // Computed Values with Memoization
+  const totalPrice = useMemo(() => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }, [cartItems]);
+
+  const vat = useMemo(() => {
+    return totalPrice * 0.2; // 20% VAT
+  }, [totalPrice]);
+
+  const grandTotal = useMemo(() => {
+    const shippingFee = 50; // Flat shipping fee
+    return totalPrice + vat + shippingFee;
+  }, [totalPrice, vat]);
+
+  // Format Currency
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     }).format(amount);
-  };
-
-  // Calculate Total Price
-  const calculateTotalPrice = (cartItems) => {
-    const total = cartItems.reduce((total, cartItem) => {
-      return total + cartItem.price * cartItem.quantity;
-    }, 0);
-    return formatCurrency(total); // Format the total price as currency
-  };
-
-  // Calculate VAT (20% of Total Price)
-  const calculateVat = (cartItems) => {
-    const vat =
-      cartItems.reduce((total, cartItem) => {
-        return total + cartItem.price * cartItem.quantity;
-      }, 0) * 0.2;
-    return formatCurrency(vat); // Format VAT as currency
-  };
-
-  // Calculate Grand Total (Total Price + VAT + Flat Shipping Fee)
-  const calculateGrandTotalPrice = (cartItems) => {
-    const shippingFee = 50; // Flat shipping fee
-    const total = cartItems.reduce((total, cartItem) => {
-      return total + cartItem.price * cartItem.quantity;
-    }, 0);
-    const grandTotal = total + total * 0.2 + shippingFee;
-    return formatCurrency(grandTotal); // Format grand total as currency
   };
 
   // Handle Payment
@@ -161,9 +157,9 @@ export const CartProvider = ({ children }) => {
         decrementQuantity,
         removeItem,
         removeAllItems,
-        calculateTotalPrice,
-        calculateVat,
-        calculateGrandTotalPrice,
+        calculateTotalPrice: () => formatCurrency(totalPrice),
+        calculateVat: () => formatCurrency(vat),
+        calculateGrandTotalPrice: () => formatCurrency(grandTotal),
         handlePayment,
         formatCurrency,
       }}

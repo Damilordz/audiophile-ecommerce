@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const NavLinkContext = createContext();
 
  export const NavLinkProvider = ({ children }) => {
-  const [activeLink, setActiveLink] = useState("home");
+  const [activeLink, setActiveLink] = useState("");
 
   return (
     <NavLinkContext.Provider value={{ activeLink, setActiveLink }}>

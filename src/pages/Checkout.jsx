@@ -43,11 +43,11 @@ function Checkout() {
 
         <form
           onSubmit={handlePayment}
-          className="flex flex-col sm:flex-row gap-10 justify-between"
+          className="flex flex-col lg:flex-row gap-10 justify-between"
         >
-          <div className="shadow-lg rounded-xl p-6 sm:p-12 bg-white flex flex-col gap-10 sm:w-4/6">
+          <div className="shadow-lg rounded-xl p-6 sm:p-12 bg-white flex flex-col gap-10 lg:w-4/6">
             <h1 className="text-[32px] font-bold">Checkout</h1>
-            <div className="flex flex-col gap-10 sm:gap-20">
+            <div className="flex flex-col gap-10 lg:gap-20">
               {/* Billing Details */}
               <div className="flex flex-col gap-6">
                 <h2 className="text-primary font-bold text-[13px] uppercase">
@@ -278,7 +278,7 @@ function Checkout() {
           </div>
 
           {/* Summary Section */}
-          <div className="w-full sm:w-0 shadow-lg rounded-xl p-6 sm:p-10 bg-white flex flex-col gap-8 flex-grow self-start">
+          <div className="w-full lg:w-0 shadow-lg rounded-xl p-6 sm:p-10 bg-white flex flex-col gap-8 flex-grow self-start">
             <h2 className="text-[18px] font-bold uppercase">Summary</h2>
             {cartItems.map((item) => {
               return (

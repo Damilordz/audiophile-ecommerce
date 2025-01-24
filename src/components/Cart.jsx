@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../context/CartContext";
 
@@ -13,13 +13,21 @@ function Cart() {
     formatCurrency,
   } = useContext(CartContext);
 
+  // Disable scroll on background when modal is open
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
+
   return (
     <div
-      className="fixed w-full h-full bg-[rgba(0,0,0,0.4)]"
+      className="fixed w-full h-full bg-[rgba(0,0,0,0.4)] flex justify-center md:justify-end items-start pt-8"
       onClick={handleCartClick}
     >
       <div
-        className="absolute left-1/2 transform -translate-x-1/2 top-10 sm:right-40 flex flex-col gap-10 bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-[377px]"
+        className="flex flex-col gap-10 bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-[377px] md:mr-[8%] max-h-[70vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center">
@@ -84,7 +92,7 @@ function Cart() {
             <Link
               to="/checkout"
               onClick={handleCartClick}
-              className="bg-primary hover:bg-[#fbaf85] text-white flex justify-center items-center h-[48px] rounded-lg uppercase font-bold text-[13px]"
+              className="bg-primary hover:bg-[#fbaf85] text-white flex justify-center items-center h-[48px] py-2 rounded-lg uppercase font-bold text-[13px]"
             >
               Checkout
             </Link>

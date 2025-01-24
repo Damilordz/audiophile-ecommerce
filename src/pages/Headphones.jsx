@@ -10,7 +10,7 @@ function Headphones() {
       </div>
 
       <div className="w-10/12 my-20">
-        <div className="flex flex-col gap-24 sm:gap-32">
+        <div className="flex flex-col gap-24 lg:gap-32">
           {products
             .filter((p) => p.category === "headphones")
             .map((product, index) => (

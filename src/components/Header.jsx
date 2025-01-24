@@ -1,6 +1,7 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../context/CartContext";
+import MenuContext from "../context/MenuContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,28 +10,24 @@ import CategorySection from "./CategorySection";
 
 function Header() {
   const { handleCartClick, cartItems } = useContext(CartContext);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
+  const { isMenuOpen, handleMenuClick } = useContext(MenuContext);
 
   return (
     <header className="bg-black flex justify-center items-center">
-      <div className="flex justify-between items-center py-7 sm:border-b text-white w-10/12">
+      <div className="flex justify-between md:justify-start lg:justify-between md:gap-8 items-center py-7 sm:border-b text-white w-10/12">
         {/* Hamburger Menu */}
-        <div className="sm:hidden">
-          {isMobileMenuOpen ? (
+        <div className="lg:hidden">
+          {isMenuOpen ? (
             <CloseIcon
               fontSize="large"
               className="cursor-pointer hover:text-gray-300 transition"
-              onClick={toggleMenu}
+              onClick={handleMenuClick}
             />
           ) : (
             <MenuIcon
               fontSize="large"
               className="cursor-pointer hover:text-gray-300 transition"
-              onClick={toggleMenu}
+              onClick={handleMenuClick}
             />
           )}
         </div>
@@ -48,21 +45,24 @@ function Header() {
 
         <div
           className={`absolute ${
-            isMobileMenuOpen ? "block" : "hidden"
-          } flex items-start bg-black bg-opacity-50  top-[80px] left-0 w-full h-full z-10`}
+            isMenuOpen ? "block" : "hidden"
+          } flex items-start bg-black bg-opacity-50  top-[80px] left-0 w-full  h-full z-50`}
         >
-          <div className="bg-[#fff] text-black w-full rounded-b-lg">
+          <div className="bg-[#fff] text-black w-full rounded-b-lg z-">
             <CategorySection />
           </div>
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden sm:block">
+        <div className="hidden lg:block">
           <NavLinks />
         </div>
 
         {/* Shopping Cart Icon */}
-        <div onClick={handleCartClick} className="relative">
+        <div
+          onClick={handleCartClick}
+          className="relative md:flex-grow lg:flex-grow-0 md:flex md:justify-end"
+        >
           <ShoppingCartIcon className="cursor-pointer hover:text-gray-300 transition" />
           {cartItems.length > 0 && (
             <p className="absolute top-[-5px] cursor-pointer right-[-2px] flex items-center justify-center h-[16px] w-[13px] text-[12px] font-bold text-primary bg-white rounded-md">

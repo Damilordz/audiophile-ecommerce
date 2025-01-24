@@ -55,6 +55,10 @@ const products = [
           "/assets/product-xx99-mark-two-headphones/tablet/image-product.jpg",
       },
       {
+        tabletPreview:
+          "/assets/product-xx99-mark-two-headphones/tablet/image-category-page-preview.jpg",
+      },
+      {
         tabletGallery1:
           "/assets/product-xx99-mark-two-headphones/tablet/image-gallery-1.jpg",
       },
@@ -126,6 +130,10 @@ const products = [
           "/assets/product-xx99-mark-one-headphones/tablet/image-product.jpg",
       },
       {
+        tabletPreview:
+          "/assets/product-xx99-mark-one-headphones/tablet/image-category-page-preview.jpg",
+      },
+      {
         tabletGallery1:
           "/assets/product-xx99-mark-one-headphones/tablet/image-gallery-1.jpg",
       },
@@ -189,6 +197,10 @@ const products = [
       },
       {
         tablet: "/assets/product-xx59-headphones/tablet/image-product.jpg",
+      },
+      {
+        tabletPreview:
+          "/assets/product-xx59-headphones/tablet/image-category-page-preview.jpg",
       },
       {
         tabletGallery1:
@@ -256,6 +268,10 @@ const products = [
         tablet: "/assets/product-zx9-speaker/tablet/image-product.jpg",
       },
       {
+        tabletPreview:
+          "/assets/product-zx9-speaker/tablet/image-category-page-preview.jpg",
+      },
+      {
         tabletGallery1:
           "/assets/product-zx9-speaker/tablet/image-gallery-1.jpg",
       },
@@ -321,6 +337,10 @@ const products = [
         tablet: "/assets/product-zx7-speaker/tablet/image-product.jpg",
       },
       {
+        tabletPreview:
+          "/assets/product-zx7-speaker/tablet/image-category-page-preview.jpg",
+      },
+      {
         tabletGallery1:
           "/assets/product-zx7-speaker/tablet/image-gallery-1.jpg",
       },
@@ -331,7 +351,7 @@ const products = [
       {
         tabletGallery3:
           "/assets/product-zx7-speaker/tablet/image-gallery-3.jpg",
-      }
+      },
     ],
     desktopImage: "/assets/product-zx7-speaker/desktop/image-product.jpg",
     recommendations: [4, 2, 3], // IDs of related products
@@ -353,7 +373,7 @@ const products = [
       { item: "User Manual", quantity: 1 },
       { item: "3.5mm 5m Audio Cable", quantity: 1 },
     ],
-    image:[
+    image: [
       {
         desktop: "/assets/product-yx1-earphones/desktop/image-product.jpg",
       },
@@ -370,26 +390,36 @@ const products = [
         mobile: "/assets/product-yx1-earphones/mobile/image-product.jpg",
       },
       {
-        mobileGallery1: "/assets/product-yx1-earphones/mobile/image-gallery-1.jpg",
+        mobileGallery1:
+          "/assets/product-yx1-earphones/mobile/image-gallery-1.jpg",
       },
       {
-        mobileGallery2: "/assets/product-yx1-earphones/mobile/image-gallery-2.jpg",
+        mobileGallery2:
+          "/assets/product-yx1-earphones/mobile/image-gallery-2.jpg",
       },
       {
-        mobileGallery3: "/assets/product-yx1-earphones/mobile/image-gallery-3.jpg",
+        mobileGallery3:
+          "/assets/product-yx1-earphones/mobile/image-gallery-3.jpg",
       },
       {
         tablet: "/assets/product-yx1-earphones/tablet/image-product.jpg",
       },
       {
-        tabletGallery1: "/assets/product-yx1-earphones/tablet/image-gallery-1.jpg",
+        tabletPreview:
+          "/assets/product-yx1-earphones/tablet/image-category-page-preview.jpg",
       },
       {
-        tabletGallery2: "/assets/product-yx1-earphones/tablet/image-gallery-2.jpg",
+        tabletGallery1:
+          "/assets/product-yx1-earphones/tablet/image-gallery-1.jpg",
       },
       {
-        tabletGallery3: "/assets/product-yx1-earphones/tablet/image-gallery-3.jpg",
-      }
+        tabletGallery2:
+          "/assets/product-yx1-earphones/tablet/image-gallery-2.jpg",
+      },
+      {
+        tabletGallery3:
+          "/assets/product-yx1-earphones/tablet/image-gallery-3.jpg",
+      },
     ],
     desktopImage: "/assets/product-yx1-earphones/desktop/image-product.jpg",
     recommendations: [2, 3, 4], // IDs of related products
