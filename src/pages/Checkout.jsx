@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import CartContext from "../context/CartContext";
+import NavLinkContext from "../context/NavLinkContext";
 
 function Checkout() {
   const [touched, setTouched] = useState(false);
@@ -24,6 +26,7 @@ function Checkout() {
     calculateGrandTotalPrice,
     formatCurrency,
   } = useContext(CartContext);
+  const { activeLink } = useContext(NavLinkContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +42,9 @@ function Checkout() {
   return (
     <div>
       <div className="w-10/12 mx-auto my-16 flex flex-col gap-10">
-        <p>Go Back</p>
+        <Link to={`/${activeLink}`} className="text-[#a09e9e] hover:text-primary">
+          Go Back
+        </Link>
 
         <form
           onSubmit={handlePayment}

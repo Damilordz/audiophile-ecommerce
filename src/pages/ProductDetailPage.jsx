@@ -25,7 +25,9 @@ const ProductDetails = () => {
     <div className="flex flex-col items-center justify-center mt-20">
       {product && (
         <div className="w-10/12 flex flex-col gap-10">
-          <Link to={`/${activeLink}`} className="text-[#a09e9e]">Go Back</Link>
+          <Link to={`/${activeLink}`} className="text-[#a09e9e] hover:text-primary">
+            Go Back
+          </Link>
           <div className="flex flex-col gap-20 sm:gap-32 mb-20">
             <div className="flex flex-col sm:flex-row justify-between gap-10 md:gap-20 lg:gap-32">
               {/* Responsive Images */}
